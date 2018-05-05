@@ -22,9 +22,9 @@ public class InsuranceTest2 {
         Wait<WebDriver> wait = new WebDriverWait(driver,4,1000);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[@class='region-list__arrow']"))));
         driver.findElement(By.xpath("//span[@class='region-list__arrow']")).click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("/html/body/div[6]/div/div[2]/div[2]/div/div[1]/div/div[1]/input"))));
-        driver.findElement(By.xpath("/html/body/div[6]/div/div[2]/div[2]/div/div[1]/div/div[1]/input")).click();
-        Inserting(By.xpath("/html/body/div[6]/div/div[2]/div[2]/div/div[1]/div/div[1]/input"),"Нижегородская область");
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@placeholder='Введите название региона']"))));
+        driver.findElement(By.xpath("//input[@placeholder='Введите название региона']")).click();
+        Inserting(By.xpath("//input[@placeholder='Введите название региона']"),"Нижегородская область");
 
         driver.findElement(By.xpath("//span[@class='region-search-box__option']")).click();
         assertEquals("Нижегородская область", driver.findElement(By.xpath("//span[text()='Нижегородская область']")).getText());
