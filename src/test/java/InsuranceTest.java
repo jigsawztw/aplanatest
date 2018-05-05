@@ -12,7 +12,8 @@ public class InsuranceTest {
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\aplana\\AutoTestFirstTry\\drivers\\chromedriver.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
 
@@ -22,13 +23,13 @@ public class InsuranceTest {
     }
     @Test
     public void Testing() throws InterruptedException{
-        driver.navigate().to("https://www.rgs.ru");
+        driver.navigate().to("https://www.rgs.ru/");
         WebElement element = driver.findElement(By.xpath("//*[contains(text(),'Страхование')]"));
         element.click();
         driver.findElement(By.xpath("//*[contains(text(),'ДМС')]")).click();
         Wait<WebDriver> wait = new WebDriverWait(driver,5,1000);
-            wait.until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//*[contains(text(),'Отправить заявку')][contains(@class,'btn')]"))));
-            driver.findElement(By.xpath("//*[contains(text(),'Отправить заявку')][contains(@class,'btn')]")).click();
+            wait.until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//*[@id=\"rgs-main-context-bar\"]/div/div/div/a[3]"))));
+            driver.findElement(By.xpath("//*[@id=\"rgs-main-context-bar\"]/div/div/div/a[3]")).click();
             wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("/html/body/div[7]/div/div/div/div[1]/h4/b"))));
             assertEquals("Заявка на добровольное медицинское страхование", driver.findElement(By.xpath("/html/body/div[7]/div/div/div/div[1]/h4/b")).getText());
 
