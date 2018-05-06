@@ -4,67 +4,88 @@ import org.openqa.selenium.chrome.*;
 import java.util.concurrent.*;
 import org.openqa.selenium.support.ui.*;
 import static org.junit.Assert.*;
+import org.openqa.selenium.support.*;
 
-public class InsuranceTest {
-    WebDriver driver;
+/**
+ * @author  Osipov Ivan, student
+ */
+public class InsuranceTest  extends BaseTest{
 
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:\\aplana\\AutoTestFirstTry\\drivers\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
 
-    public void Inserting(By x,String str){
-        driver.findElement(x).clear();
-        driver.findElement(x).sendKeys(str);
-    }
+    @FindBy(xpath = "//*[contains(text(),'Страхование')]")
+    WebElement insuranceElem;
+
+    @FindBy(xpath = "//*[contains(text(),'ДМС')]")
+    WebElement dmsElem;
+
+    @FindBy(xpath = "//*[@id=\"rgs-main-context-bar\"]//a[@data-form='insuranceApplication']")
+    WebElement buttonSendRequest;
+
+    @FindBy(xpath = "//b[text()='Заявка на добровольное медицинское страхование']")
+    WebElement requestPageTitle;
+
+    @FindBy(xpath = "//input[@class='checkbox']")
+    WebElement checkBox;
+
+    @FindBy(id = "button-m")
+    WebElement sendButton;
+
+    @FindBy(name = "FirstName")
+    WebElement fname;
+
+    @FindBy(name = "LastName")
+    WebElement lname;
+
+    @FindBy(name = "MiddleName")
+    WebElement mname;
+
+    @FindBy(xpath = "//*[@id=\"applicationForm\"]/div[2]/div[5]/input")
+    WebElement phone;
+
+    @FindBy(name = "Email")
+    WebElement email;
+
+    @FindBy(name = "ContactDate")
+    WebElement contactDate;
+
+    @FindBy(name = "Comment")
+    WebElement comm;
+
+    @FindBy(xpath = "//*[text()='Эл. почта']/..//span[@class='validation-error-text']")
+    WebElement errorInvalidEmail;
+
+
     @Test
-    public void Testing() throws InterruptedException{
-        driver.navigate().to("https://www.rgs.ru/");
-        WebElement element = driver.findElement(By.xpath("//*[contains(text(),'Страхование')]"));
-        element.click();
-        driver.findElement(By.xpath("//*[contains(text(),'ДМС')]")).click();
-        Wait<WebDriver> wait = new WebDriverWait(driver,5,1000);
-            wait.until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//*[@id=\"rgs-main-context-bar\"]/div/div/div/a[3]"))));
-            driver.findElement(By.xpath("//*[@id=\"rgs-main-context-bar\"]/div/div/div/a[3]")).click();
-            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("/html/body/div[7]/div/div/div/div[1]/h4/b"))));
-            assertEquals("Заявка на добровольное медицинское страхование", driver.findElement(By.xpath("/html/body/div[7]/div/div/div/div[1]/h4/b")).getText());
+    public void Test() throws InterruptedException{
+        PageFactory.initElements(driver,this);
+        insuranceElem.click();                         //Страхование
+        dmsElem.click();                               //ДМС
+        waitVisibilityOf(buttonSendRequest);          //Ожидаем, пока кнопка станет видимой
+        waitClickableOf(buttonSendRequest);         //без этой функции порой тест вылетает.. не могу понять почему. Но с ним все вроде работает.
+        buttonSendRequest.click();                     //Жмем кнопку "Отправить заявку"
+        waitVisibilityOf(requestPageTitle);           //Ожидаем, пока кнопка станет видимой форма с шапкой "Заявка на добровольное медицинское страхование"
+        assertEquals("Заявка на добровольное медицинское страхование", requestPageTitle.getText()); //проверяем, есть ли на загруженной форме "Заявка на добровольное медицинское страхование"
+        Inserting(fname,person.getFirstName());     //Записываем в поле "Имя" имя заранее созданного рандомного Person
+        Inserting(lname,person.getLastName());      //Записываем в поле "Фамилия" фамилию заранее созданного рандомного Person
+        Inserting(mname,person.getMiddleName());    //Записываем в поле "Отчество" отчество заранее созданного рандомного Person
+        Select region = new Select(driver.findElement(By.name("Region")));
+        region.selectByValue("77");                 //Выбираем из выпадающего списка регион со значением "77" (Москва)
+        Inserting(phone,"(962) 473-07-99");     //Записываем в поле "телефон" номер телефона
+        Inserting(email,"qwertyqwerty");        //Записываем в поле "электронная почта" адрес ящика
+        Inserting(contactDate,"05092018");      //Записываем в поле "желаемая дата для связи" дату
+        Inserting(comm,"mycomment");            //Записываем в поле "комментарий" комментарий
+        checkBox.click();                           //Ставим галочку в чекбокс
+        sendButton.click();                         //Жмем кнопку отправить
 
-            Inserting(By.name("FirstName"),"Иван");
-            Inserting(By.name("LastName"),"Осипов");
-            Inserting(By.name("MiddleName"),"Владимирович");
-
-            Select select  = new Select(driver.findElement(By.name("Region")));
-            select.selectByValue("77");
-
-            Inserting(By.xpath("//*[@id=\"applicationForm\"]/div[2]/div[5]/input"),"(962) 473-07-99");
-            Inserting(By.name("Email"),"qwertyqwerty");
-            Inserting(By.name("ContactDate"),"05052018");
-            Inserting(By.name("Comment"),"mycomment");
-
-            driver.findElement(By.cssSelector("input.checkbox")).click();
-
-            driver.findElement(By.id("button-m")).click();
-
-            assertEquals("Осипов", driver.findElement(By.name("LastName")).getAttribute("value"));
-            assertEquals("Владимирович", driver.findElement(By.name("MiddleName")).getAttribute("value"));
-            assertEquals("Иван", driver.findElement(By.name("FirstName")).getAttribute("value"));
-            assertEquals("+7 (962) 473-07-99", driver.findElement(By.xpath("//*[@id=\"applicationForm\"]/div[2]/div[5]/input")).getAttribute("value"));
-            assertEquals("qwertyqwerty", driver.findElement(By.name("Email")).getAttribute("value"));
-            assertEquals("05.05.2018", driver.findElement(By.name("ContactDate")).getAttribute("value"));
-            assertEquals("mycomment", driver.findElement(By.name("Comment")).getAttribute("value"));
-            assertEquals("Москва",
-                    new Select(driver.findElement(By.name("Region"))).getAllSelectedOptions().get(0).getText());
-            assertEquals("Введите адрес электронной почты",
-                    driver.findElement(By.xpath("//*[text()='Эл. почта']/..//span[@class='validation-error-text']")).getText());
+        assertEquals(person.getLastName(), lname.getAttribute("value"));
+        assertEquals(person.getMiddleName(), mname.getAttribute("value"));
+        assertEquals(person.getFirstName(), fname.getAttribute("value"));
+        assertEquals("Номер не соответствует введенному","+7 (962) 473-07-99", phone.getAttribute("value"));
+        assertEquals("Почта не соответствует введенной","qwertyqwerty", email.getAttribute("value"));
+        assertEquals("Дата не соответствует введенной","05.09.2018", contactDate.getAttribute("value"));
+        assertEquals("Комментарий не соответствует введенному","mycomment", comm.getAttribute("value"));
+        assertEquals("Регион не соответствует введенному","Москва", region.getAllSelectedOptions().get(0).getText());
+        assertEquals("Почта неверное указана","Введите адрес электронной почты", errorInvalidEmail.getText());
         }
 
-
-    @After
-    public void tearDown(){
-        driver.close();
-    }
 }
