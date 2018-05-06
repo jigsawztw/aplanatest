@@ -60,8 +60,8 @@ public class InsuranceTest  extends BaseTest{
         PageFactory.initElements(driver,this);
         insuranceElem.click();                         //Страхование
         dmsElem.click();                               //ДМС
-        waitVisibilityOf(buttonSendRequest);          //Ожидаем, пока кнопка станет видимой
-        waitClickableOf(buttonSendRequest);         //без этой функции порой тест вылетает.. не могу понять почему. Но с ним все вроде работает.
+        waitClickableOf(buttonSendRequest); Thread.sleep(1000);        //без этой функции порой тест вылетает.. не могу понять почему. Но с ним все вроде работает.
+        waitVisibilityOf(buttonSendRequest);            //Ожидаем, пока кнопка станет видимой
         buttonSendRequest.click();                     //Жмем кнопку "Отправить заявку"
         waitVisibilityOf(requestPageTitle);           //Ожидаем, пока кнопка станет видимой форма с шапкой "Заявка на добровольное медицинское страхование"
         assertEquals("Заявка на добровольное медицинское страхование", requestPageTitle.getText()); //проверяем, есть ли на загруженной форме "Заявка на добровольное медицинское страхование"
@@ -80,12 +80,12 @@ public class InsuranceTest  extends BaseTest{
         assertEquals(person.getLastName(), lname.getAttribute("value"));
         assertEquals(person.getMiddleName(), mname.getAttribute("value"));
         assertEquals(person.getFirstName(), fname.getAttribute("value"));
-        assertEquals("Номер не соответствует введенному","+7 (962) 473-07-99", phone.getAttribute("value"));
-        assertEquals("Почта не соответствует введенной","qwertyqwerty", email.getAttribute("value"));
-        assertEquals("Дата не соответствует введенной","05.09.2018", contactDate.getAttribute("value"));
-        assertEquals("Комментарий не соответствует введенному","mycomment", comm.getAttribute("value"));
-        assertEquals("Регион не соответствует введенному","Москва", region.getAllSelectedOptions().get(0).getText());
-        assertEquals("Почта неверное указана","Введите адрес электронной почты", errorInvalidEmail.getText());
+        assertEquals("Введенный номер не соответствует ожидаемому","+7 (962) 473-07-99", phone.getAttribute("value"));
+        assertEquals("Введенная почта не соответствует ожидаемой","qwertyqwerty", email.getAttribute("value"));
+        assertEquals("Введенная дата не соответствует ожидаемой","05.09.2018", contactDate.getAttribute("value"));
+        assertEquals("Введенный комментарий не соответствует ожидаемому","mycomment", comm.getAttribute("value"));
+        assertEquals("Введенный регион не соответствует ожидаемому","Москва", region.getAllSelectedOptions().get(0).getText());
+        assertEquals("Фактическое сообщение об ошибке о неверно введенной почте не соответствует ожидаемому","Введите адрес электронной почты", errorInvalidEmail.getText());
         }
 
 }
