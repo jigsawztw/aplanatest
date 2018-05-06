@@ -41,11 +41,16 @@ public class BaseTest {
     public static void tearDown() throws Exception{
         driver.quit();
     }
-
+    /**
+     * Метод, который ожидает видимости элемента
+     */
     public static void waitVisibilityOf(WebElement webElement){
             WebDriverWait wait = new WebDriverWait(driver,10);
             wait.until(ExpectedConditions.visibilityOf(webElement));
     }
+    /**
+     * Метод, который ожидает кликабельности элемента
+     */
     public static void waitClickableOf(WebElement webElement){
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
