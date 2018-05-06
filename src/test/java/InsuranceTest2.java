@@ -30,8 +30,15 @@ public class InsuranceTest2 {
         assertEquals("Нижегородская область", driver.findElement(By.xpath("//span[text()='Нижегородская область']")).getText());
         WebElement webElement = driver.findElement(By.xpath("//div[@class='footer-info']"));
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(false);",webElement);
+        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_fb']")).isDisplayed();
+        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_yt']")).isDisplayed();
+        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_tw']")).isDisplayed();
+        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_vk']")).isDisplayed();
+        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_ok']")).isDisplayed();
+        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_ins']")).isDisplayed();
         Thread.sleep(3000);
     }
+
     public void Inserting(By x,String str){
         driver.findElement(x).clear();
         driver.findElement(x).sendKeys(str);
