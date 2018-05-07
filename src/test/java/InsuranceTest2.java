@@ -4,48 +4,62 @@ import org.openqa.selenium.chrome.*;
 import java.util.concurrent.*;
 import org.openqa.selenium.support.ui.*;
 import static org.junit.Assert.*;
-public class InsuranceTest2 {
-    WebDriver driver;
+import org.openqa.selenium.support.*;
 
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:\\aplana\\AutoTestFirstTry\\drivers\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(15,TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
+
+/**
+ * @author  Osipov Ivan, student
+ */
+public class InsuranceTest2  extends BaseTest{
+
+    @FindBy(xpath = "//span[@class='region-list__arrow']")
+    WebElement regionButton;
+
+    @FindBy(xpath = "//input[@placeholder='Введите название региона']")
+    WebElement inputRegionField;
+
+    @FindBy(xpath = "//span[@class='region-search-box__option']")
+    WebElement optionElem;
+
+    @FindBy(xpath = "//span[text()='Нижегородская область']")
+    WebElement regionMainPage;
+
+    @FindBy(xpath = "//div[@class='footer-info']")
+    WebElement footerElem;
+
+    @FindBy(xpath = "//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_fb']")
+    WebElement facebook;
+    @FindBy(xpath = "//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_yt']")
+    WebElement youtube;
+    @FindBy(xpath = "//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_tw']")
+    WebElement twitter;
+    @FindBy(xpath = "//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_vk']")
+    WebElement vkontakte;
+    @FindBy(xpath = "//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_ok']")
+    WebElement odnoklassniki;
+    @FindBy(xpath = "//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_ins']")
+    WebElement instagramm;
 
     @Test
-    public void Testing() throws InterruptedException {
-        driver.navigate().to("http://www.sberbank.ru/ru/person");
-        Wait<WebDriver> wait = new WebDriverWait(driver,4,1000);
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[@class='region-list__arrow']"))));
-        driver.findElement(By.xpath("//span[@class='region-list__arrow']")).click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@placeholder='Введите название региона']"))));
-        driver.findElement(By.xpath("//input[@placeholder='Введите название региона']")).click();
-        Inserting(By.xpath("//input[@placeholder='Введите название региона']"),"Нижегородская область");
+    public void Test() throws InterruptedException {
+        PageFactory.initElements(driver,this);
+        waitVisibilityOf(regionButton);                 //Ожидаем пока кнопка выбора региона будет видимой
+        regionButton.click();                           //Кликаем по кнопке выбора региона
+        waitVisibilityOf(inputRegionField);             //Ожидаем пока поле для ввода региона будет видимым
+        inputRegionField.click();                       //Кликаем в поле ввода
+        Inserting(inputRegionField,"Нижегородская область");    //Вводим текст  "Нижегородская область" в поле поиска
 
-        driver.findElement(By.xpath("//span[@class='region-search-box__option']")).click();
-        assertEquals("Нижегородская область", driver.findElement(By.xpath("//span[text()='Нижегородская область']")).getText());
-        WebElement webElement = driver.findElement(By.xpath("//div[@class='footer-info']"));
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(false);",webElement);
-        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_fb']")).isDisplayed();
-        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_yt']")).isDisplayed();
-        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_tw']")).isDisplayed();
-        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_vk']")).isDisplayed();
-        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_ok']")).isDisplayed();
-        driver.findElement(By.xpath("//div[@class='sbrf-div-list-inner --area bp-area footer-white']//span[@class='social__icon social__icon_type_ins']")).isDisplayed();
-        Thread.sleep(3000);
+        optionElem.click();                          //Кликаем по предлагаемому результату
+        assertEquals("Отображаемый регион не соответствует ожидаемому","Нижегородская область", regionMainPage.getText()); //Проверяем соответсвует ли регион выбранному
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(false);",footerElem); //Прокручиваем скролл до футера
+        facebook.isDisplayed();                     //видим ли элемент
+        youtube.isDisplayed();                      //видим ли элемент
+        twitter.isDisplayed();                      //видим ли элемент
+        vkontakte.isDisplayed();                    //видим ли элемент
+        odnoklassniki.isDisplayed();                //видим ли элемент
+        instagramm.isDisplayed();                   //видим ли элемент
+        Thread.sleep(1000);                    // Задержка 1с
     }
 
-    public void Inserting(By x,String str){
-        driver.findElement(x).clear();
-        driver.findElement(x).sendKeys(str);
-    }
-    @After
-    public void tearsDown(){
-        driver.quit();
-    }
 
 }
