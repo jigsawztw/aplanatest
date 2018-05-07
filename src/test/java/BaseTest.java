@@ -29,7 +29,7 @@ public class BaseTest {
             driver = new ChromeDriver();
         }
 
-        BaseUrl = properties.getProperty("app.url1"); //или app.url2 в случае со сбером
+        BaseUrl = properties.getProperty("app.url1"); //или app.url2 в случае со 2ым сценарием(Сбербанк)
         driver.get(BaseUrl);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(30,TimeUnit.SECONDS);
