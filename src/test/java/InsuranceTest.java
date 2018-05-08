@@ -56,24 +56,26 @@ public class InsuranceTest  extends BaseTest{
 
 
     @Test
-    public void Test() throws InterruptedException{
+    public void test() throws InterruptedException{
+        baseUrl = properties.getProperty("app.url1");
+        driver.get(baseUrl);
         PageFactory.initElements(driver,this);
         insuranceElem.click();                         //Страхование
         dmsElem.click();                               //ДМС
-        waitClickableOf(buttonSendRequest); Thread.sleep(1000);        //без этой функции порой тест вылетает.. не могу понять почему. Но с ним все вроде работает.
+        waitClickableOf(buttonSendRequest);        //без этой функции порой тест вылетает.. не могу понять почему. Но с ним все вроде работает.
         waitVisibilityOf(buttonSendRequest);            //Ожидаем, пока кнопка станет видимой
         buttonSendRequest.click();                     //Жмем кнопку "Отправить заявку"
         waitVisibilityOf(requestPageTitle);           //Ожидаем, пока кнопка станет видимой форма с шапкой "Заявка на добровольное медицинское страхование"
         assertEquals("Заявка на добровольное медицинское страхование", requestPageTitle.getText()); //проверяем, есть ли на загруженной форме "Заявка на добровольное медицинское страхование"
-        Inserting(fname,person.getFirstName());     //Записываем в поле "Имя" имя заранее созданного рандомного Person
-        Inserting(lname,person.getLastName());      //Записываем в поле "Фамилия" фамилию заранее созданного рандомного Person
-        Inserting(mname,person.getMiddleName());    //Записываем в поле "Отчество" отчество заранее созданного рандомного Person
+        inserting(fname,person.getFirstName());     //Записываем в поле "Имя" имя заранее созданного рандомного Person
+        inserting(lname,person.getLastName());      //Записываем в поле "Фамилия" фамилию заранее созданного рандомного Person
+        inserting(mname,person.getMiddleName());    //Записываем в поле "Отчество" отчество заранее созданного рандомного Person
         Select region = new Select(driver.findElement(By.name("Region")));
         region.selectByValue("77");                 //Выбираем из выпадающего списка регион со значением "77" (Москва)
-        Inserting(phone,"(962) 473-07-99");     //Записываем в поле "телефон" номер телефона
-        Inserting(email,"qwertyqwerty");        //Записываем в поле "электронная почта" адрес ящика
-        Inserting(contactDate,"05092018");      //Записываем в поле "желаемая дата для связи" дату
-        Inserting(comm,"mycomment");            //Записываем в поле "комментарий" комментарий
+        inserting(phone,"(962) 473-07-99");     //Записываем в поле "телефон" номер телефона
+        inserting(email,"qwertyqwerty");        //Записываем в поле "электронная почта" адрес ящика
+        inserting(contactDate,"05092018");      //Записываем в поле "желаемая дата для связи" дату
+        inserting(comm,"mycomment");            //Записываем в поле "комментарий" комментарий
         checkBox.click();                           //Ставим галочку в чекбокс
         sendButton.click();                         //Жмем кнопку отправить
 
