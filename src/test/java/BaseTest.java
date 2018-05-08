@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.*;
  */
 public class BaseTest {
     protected static WebDriver driver;
-    protected static String BaseUrl;
+    protected static String baseUrl;
     public static Properties properties =  TestProperties.getInstance().getProperties();
     static Person person;
 
@@ -28,9 +28,6 @@ public class BaseTest {
             System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome.driver"));
             driver = new ChromeDriver();
         }
-
-        BaseUrl = properties.getProperty("app.url1"); //или app.url2 в случае со 2ым сценарием(Сбербанк)
-        driver.get(BaseUrl);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(30,TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -59,7 +56,7 @@ public class BaseTest {
     /**
      * Метод, который заполняет значением str поле элемента x
      */
-    public static void Inserting(WebElement x, String str){
+    public static void inserting(WebElement x, String str){
         x.clear();
         x.sendKeys(str);
     }
