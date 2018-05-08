@@ -41,13 +41,15 @@ public class InsuranceTest2  extends BaseTest{
     WebElement instagramm;
 
     @Test
-    public void Test() throws InterruptedException {
+    public void test() throws InterruptedException {
+        baseUrl = properties.getProperty("app.url2");
+        driver.get(baseUrl);
         PageFactory.initElements(driver,this);
         waitVisibilityOf(regionButton);                 //Ожидаем пока кнопка выбора региона будет видимой
         regionButton.click();                           //Кликаем по кнопке выбора региона
         waitVisibilityOf(inputRegionField);             //Ожидаем пока поле для ввода региона будет видимым
         inputRegionField.click();                       //Кликаем в поле ввода
-        Inserting(inputRegionField,"Нижегородская область");    //Вводим текст  "Нижегородская область" в поле поиска
+        inserting(inputRegionField,"Нижегородская область");    //Вводим текст  "Нижегородская область" в поле поиска
 
         optionElem.click();                          //Кликаем по предлагаемому результату
         assertEquals("Отображаемый регион не соответствует ожидаемому","Нижегородская область", regionMainPage.getText()); //Проверяем соответсвует ли регион выбранному
