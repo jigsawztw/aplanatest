@@ -42,7 +42,7 @@ public class YandexTest  extends BasePage {
         new SearchResultPage().saveName(1);
         firstSearch.search((String)Stash.get(Stash.itemName));
         new ItemPage().checkPos();
-        Thread.sleep(500);
+        //Thread.sleep(500);
 
 
 
