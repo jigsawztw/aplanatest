@@ -3,17 +3,14 @@ import utils.*;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+public class Electronix extends BasePage{
+    @FindBy(xpath = "//li[@data-department='Электроника']/a[text()='Электроника']")
+    WebElement electronixBtn;
 
-public class YandexMarketPage  extends BasePage{
-    @FindBy(xpath = "//a[@data-id='market']")
-    WebElement marketBtn;
 
-    public YandexMarketPage(){
+    public Electronix(){
         driver = Stash.getDriver();
         PageFactory.initElements(driver, this);
-        marketBtn.click();
+        electronixBtn.click();
     }
-
 }
-
-

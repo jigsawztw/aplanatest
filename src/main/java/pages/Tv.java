@@ -4,16 +4,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class YandexMarketPage  extends BasePage{
-    @FindBy(xpath = "//a[@data-id='market']")
-    WebElement marketBtn;
+public class Tv extends BasePage{
 
-    public YandexMarketPage(){
+    @FindBy(xpath = "//div[@class='catalog-menu__list']/a[text()='Телевизоры']")
+    WebElement tvBtn;
+
+    public Tv(){
         driver = Stash.getDriver();
         PageFactory.initElements(driver, this);
-        marketBtn.click();
+        tvBtn.click();
     }
-
 }
-
-

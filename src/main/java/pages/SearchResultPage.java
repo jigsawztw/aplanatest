@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 
 public class SearchResultPage extends BasePage{
 
-    private static final String cardListItemXpath = "//div[starts-with(@class, \"n-snippet-card2 i-bem\")]";
+    private static final String cardListItemXpath = "//div[starts-with(@class, \"n-snippet-cell2 i-bem\")]";
     @FindBy(xpath = cardListItemXpath)
     List<WebElement> results;
 
@@ -24,7 +24,7 @@ public class SearchResultPage extends BasePage{
 
     public  SearchResultPage saveName(int position) {
         WebElement element = results.get(position);
-        String fullItemName = element.findElement(By.xpath("//div[@class='n-snippet-card2__title']")).getText();
+        String fullItemName = element.findElement(By.xpath("//div[@class='n-snippet-cell2__title']")).getText();
         Stash.put(Stash.itemName, fullItemName);
         return this;
     }

@@ -20,6 +20,7 @@ public class ItemPage  extends BasePage{
 
     public void checkPos(){
         String expectedName = (String) Stash.get(Stash.itemName);
+        Stash.waitVisibilityOf(driver.findElement(By.xpath("//h1[@class='title title_size_28 title_bold_yes']")));
         String factName = driver.findElement(By.xpath("//h1[@class='title title_size_28 title_bold_yes']")).getText();
         Assert.assertEquals("Название товара не соответствует запомненному", expectedName, factName);
     }
