@@ -5,7 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.By;
 import org.junit.*;
-
 public class ItemPage  extends BasePage{
 
     @FindBy(xpath = "//div[@class='n-title__text']/h1")

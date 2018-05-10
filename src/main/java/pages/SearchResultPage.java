@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 
 public class SearchResultPage extends BasePage{
 
-
     private static final String cardListItemXpath = "//div[starts-with(@class, \"n-snippet-card2 i-bem\")]";
     @FindBy(xpath = cardListItemXpath)
     List<WebElement> results;

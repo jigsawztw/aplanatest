@@ -14,7 +14,6 @@ public class YandexMarketPage  extends BasePage{
         marketBtn.click();
     }
 
-
 }
 
 
