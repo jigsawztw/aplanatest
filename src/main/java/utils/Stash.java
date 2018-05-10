@@ -2,7 +2,6 @@ package utils;
 import org.openqa.selenium.WebDriver;
 import java.util.HashMap;
 import java.util.Map;
-import org.openqa.selenium.By;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
