@@ -38,11 +38,10 @@ import utils.*;
             secondSearch.setChooseBrand("Sennheiser");
             secondSearch.showFiltered();
             secondSearch.changeCountOfResultsTo12();
-            Thread.sleep(500);
             new SearchResultPage().saveName(1);
             secondSearch.search((String)Stash.get(Stash.itemName));
             new ItemPage().checkPos();
-            Thread.sleep(500);
+            //Thread.sleep(500);
 
 
 
