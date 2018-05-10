@@ -2,7 +2,6 @@ import pages.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.BasePage;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +30,7 @@ public class YandexTest  extends BasePage {
 
 
     @Test
-    public void search_ipad_and_check_price() throws InterruptedException{
+    public void yandexTestTV() throws InterruptedException{
         new YandexMarketPage();
         new ElectronixTV();
         SearchPage firstSearch = new SearchPage();
