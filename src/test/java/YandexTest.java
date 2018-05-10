@@ -35,17 +35,14 @@ public class YandexTest  extends BasePage {
         new ElectronixTV();
         SearchPage firstSearch = new SearchPage();
         firstSearch.setPriceFrom("20000");
-        Thread.sleep(1000);
         firstSearch.setChooseBrand("LG");
-        Thread.sleep(1000);
         firstSearch.setChooseBrand("Samsung");
         firstSearch.showFiltered();
         firstSearch.changeCountOfResultsTo12();
-        Thread.sleep(1000);
         new SearchResultPage().saveName(1);
         firstSearch.search((String)Stash.get(Stash.itemName));
         new ItemPage().checkPos();
-        Thread.sleep(2000);
+        Thread.sleep(500);
 
 
 
