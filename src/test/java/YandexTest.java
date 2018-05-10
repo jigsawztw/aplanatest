@@ -32,13 +32,15 @@ public class YandexTest  extends BasePage {
     @Test
     public void yandexTestTV() throws InterruptedException{
         new YandexMarketPage();
-        new ElectronixTV();
+        new Electronix();
+        new Tv();
         SearchPage firstSearch = new SearchPage();
         firstSearch.setPriceFrom("20000");
         firstSearch.setChooseBrand("LG");
         firstSearch.setChooseBrand("Samsung");
         firstSearch.showFiltered();
         firstSearch.changeCountOfResultsTo12();
+        Thread.sleep(500);
         new SearchResultPage().saveName(1);
         firstSearch.search((String)Stash.get(Stash.itemName));
         new ItemPage().checkPos();
