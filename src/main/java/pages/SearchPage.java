@@ -10,7 +10,7 @@ public class SearchPage  extends BasePage{
 
     private static final String  patternSearch = "//a[@class='n-filter-block__item-link']";
 
-    @FindBy(xpath = "//a[@data-reactid='659']")
+    @FindBy(xpath = "//a[contains(text(),'Перейти ко всем фильтрам')]")
     WebElement allFiltersBtn;
     @FindBy(xpath = "//input[@name='glf-pricefrom-var']")
     WebElement inputPriceFrom;
