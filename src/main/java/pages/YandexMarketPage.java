@@ -17,3 +17,4 @@ public class YandexMarketPage  extends BasePage{
 
 }
 
+
